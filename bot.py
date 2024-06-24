@@ -1,16 +1,19 @@
 import tweepy
 from time import sleep
 
-# Import your Twitter application keys, tokens, and secrets.
-consumer_key = 'LPNuizjAsK4t7zvuaZA9cRF9n' 
-consumer_secret = 'smYzCkOjtDiyVil8T06BHWmzFUXsbocuUZetkm1tdSCIP9OuXD' 
-access_token = '1802318922227884032-q4q5GcrjQq6fObNYJih8ItyGKwvvbN' 
-access_token_secret = 'AxAnZXxQGjVzdHRNIGk5fEGC5bp9v4a5ktW7pe1sd0zwe'
-bearer_token = 'AAAAAAAAAAAAAAAAAAAAAPduuQEAAAAA1E4vZn2ZJl195AIsLhFR3Vq%2F14E%3DiLaZCQq1EOQ1cOI10KcsJouTa7zy1X6m93CAO8Ymg6h2xE436o'
+# Twitter API credentials
+consumer_key = 'bplpPvAUxdXNsX72N0OZ8Ulvu'
+consumer_secret = 'XzeGCp5qSTG4UE31Y3QsHW92UMwt51w9CEeVRISpjMI7NzQTHi'
+access_token = '1802318922227884032-nvqZ7D9Y79II1hILTXi4nWb1LihwhO'
+access_token_secret = 'cFVwBScH69tvk6fueRD5dxdQrs8HYncmvE8qW0Ig23dBv'
+bearer_token = 'AAAAAAAAAAAAAAAAAAAAAPduuQEAAAAATCeYFHGMZGYLuPnPxn3ZU36cUi0%3DdybADDItvmMwacnZ0yDSvVUOtcz7CblG5BWBlBZOU8Wpvgh39G'
 
-# Authentication using OAuth 2.0 Bearer Token
-client = tweepy.Client(bearer_token=bearer_token, consumer_key=consumer_key, consumer_secret=consumer_secret,
-                       access_token=access_token, access_token_secret=access_token_secret)
+# OAuth 1.0a User Authentication
+auth = tweepy.OAuth1UserHandler(consumer_key, consumer_secret, access_token, access_token_secret)
+api = tweepy.API(auth)
+
+# OAuth 2.0 Client for searching tweets
+client = tweepy.Client(bearer_token=bearer_token)
 
 # Twitter bot settings for liking Tweets
 LIKE = False
@@ -19,7 +22,7 @@ LIKE = False
 # Twitter bot settings for following the user who tweeted
 FOLLOW = False
 
-print("Twitter bot which retweets, like tweets and follow users")
+print("Twitter bot which retweets, likes tweets and follows users")
 print("Bot Settings")
 print("Like Tweets :", LIKE)
 print("Follow users :", FOLLOW)
@@ -33,19 +36,19 @@ for tweet in tweepy.Paginator(client.search_recent_tweets, query=query, tweet_fi
         print('\nTweet by user ID:', tweet.author_id)
 
         # Retweet the tweet
-        client.retweet(tweet.id)
+        api.retweet(tweet.id)
         print('Retweeted the tweet')
 
         # Favorite the tweet
         if LIKE:
-            client.like(tweet.id)
+            api.create_favorite(tweet.id)
             print('Liked the tweet')
 
         # Follow the user who tweeted
         if FOLLOW:
-            user = client.get_user(id=tweet.author_id)
+            user = api.get_user(user_id=tweet.author_id)
             if not user.following:
-                client.follow_user(target_user_id=tweet.author_id)
+                api.create_friendship(user_id=tweet.author_id)
                 print('Followed the user')
 
         # Twitter bot sleep time settings in seconds. Use large delays so that your account will not get banned
