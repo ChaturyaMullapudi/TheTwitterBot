@@ -2,11 +2,11 @@ import tweepy
 from time import sleep
 
 # Twitter API credentials
-consumer_key = 'bplpPvAUxdXNsX72N0OZ8Ulvu'
-consumer_secret = 'XzeGCp5qSTG4UE31Y3QsHW92UMwt51w9CEeVRISpjMI7NzQTHi'
-access_token = '1802318922227884032-nvqZ7D9Y79II1hILTXi4nWb1LihwhO'
-access_token_secret = 'cFVwBScH69tvk6fueRD5dxdQrs8HYncmvE8qW0Ig23dBv'
-bearer_token = 'AAAAAAAAAAAAAAAAAAAAAPduuQEAAAAATCeYFHGMZGYLuPnPxn3ZU36cUi0%3DdybADDItvmMwacnZ0yDSvVUOtcz7CblG5BWBlBZOU8Wpvgh39G'
+consumer_key = 'XXXX'
+consumer_secret = 'XXXX'
+access_token = 'XXXX'
+access_token_secret = 'XXXX'
+bearer_token = 'XXXX'
 
 # OAuth 1.0a User Authentication
 auth = tweepy.OAuth1UserHandler(consumer_key, consumer_secret, access_token, access_token_secret)
